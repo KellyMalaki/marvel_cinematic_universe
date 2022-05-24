@@ -27,12 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HomeTitle(theText: "Marvel Cinematic Universe"),
-                SizedBox(height: (MediaQuery.of(context).size.width)*0.5625-60,),
+                SizedBox(
+                  height: (MediaQuery.of(context).size.width)*0.5625,
+                  child: const HomeTitle(theText: "Marvel Cinematic Universe"),
+                ),
                 Center(child: subMenuText("Movies")),
                 const Flexible(child: MovieList())
               ],

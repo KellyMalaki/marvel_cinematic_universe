@@ -16,6 +16,7 @@ class _MovieListState extends State<MovieList> {
 
   @override
   void initState() {
+    super.initState();
     _initializeTheMovies();
   }
   void _initializeTheMovies(){
@@ -51,45 +52,55 @@ class _MovieListState extends State<MovieList> {
       Movie(name: "Spider-Man: No Way Home", image: "spiderman_3.jpg", duration: "2h 28m", rating: "8.3", year: "2021", details: "Peter Parker seeks Doctor Strange's help to make people forget about Spiderman's identity. However, when the spell he casts gets corrupted, several unwanted guests enter their universe."),
 
     ];
-    _movies.forEach((element) {
+    for (var element in _movies) {
       _movieTiles.add(_buildMovieTile(element));
-    });
+    }
   }
 
   Widget _buildMovieTile(Movie movie){
     return ListTile(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MovieInDetail(movie: movie)));
-      },
-      contentPadding: const EdgeInsets.all(15),
-      title: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          listMovieName(movie.name),
-          Row(
-            children: [
-              Expanded(child: listMovieYear(movie.year)),
-              Expanded(child: listMovieDuration(movie.duration)),
-            ],
-          )
-        ],
-      ),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Image.asset("images/thumbnail_${movie.image}",
-        width: 90.0,
-       fit: BoxFit.fitWidth,),
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => MovieInDetail(movie: movie)));
+        },
+        contentPadding: const EdgeInsets.all(15),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            listMovieName(movie.name),
+            Row(
+              children: [
+                Expanded(child: listMovieYear(movie.year)),
+                Expanded(child: listMovieDuration(movie.duration)),
+              ],
+            )
+          ],
+        ),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Hero(
+            tag: "thumbnail_to_detail_${movie.image}",
+            child: Image.asset("images/thumbnail_${movie.image}",
+            width: 90.0,
+         fit: BoxFit.fitWidth,),
+          ),
 
-      ),
-      trailing: listMovieRating(movie.rating),
-    );
+        ),
+        trailing: listMovieRating(movie.rating),
+      );
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemCount: _movieTiles.length, itemBuilder: (context, index) {
-      return _movieTiles[index];
-    });
+    return TweenAnimationBuilder(
+      child: ListView.builder(key: _listKey, itemCount: _movieTiles.length, itemBuilder: (context, index) {
+        return _movieTiles[index];
+      }),
+        tween: Tween<double>(begin: 0, end: 1),
+    duration: const Duration(seconds: 1),
+    builder: (BuildContext context, double _theOpacity, Widget? theTile){
+          return Opacity(opacity: _theOpacity, child: theTile);
+    },
+    );
   }
 }

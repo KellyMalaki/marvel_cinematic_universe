@@ -23,10 +23,10 @@ class MovieInDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
-              child: Image.asset("images/${movie.image}"),
+              child: Hero(tag: "thumbnail_to_detail_${movie.image}", child: Image.asset("images/${movie.image}")),
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
             ),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             ListTile(
               title: detailsMovieName(movie.name),
               subtitle: Row(

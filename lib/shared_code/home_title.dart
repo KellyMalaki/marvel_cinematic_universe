@@ -7,6 +7,20 @@ class HomeTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return homeText(theText);
+    return TweenAnimationBuilder(
+        child: homeText(theText),
+      tween: Tween<double>(begin: 0, end: 1),
+      curve: Curves.easeIn,
+      duration: const Duration(seconds: 1),
+      builder: (BuildContext context, double _theOpacity, Widget? theText){
+        return Opacity(
+          opacity: _theOpacity,
+          child: Padding(
+            padding: EdgeInsets.only(top: _theOpacity*10),
+            child: theText,
+          ),
+        );
+      },
+    );
   }
 }

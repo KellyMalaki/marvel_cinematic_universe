@@ -61,23 +61,23 @@ Widget detailsMovieName(String name){
 
 Widget detailsMovieYear(String name){
   return Text(name, style:
-  const TextStyle(
+  TextStyle(
       fontSize: 20.0,
-      color: Colors.white60
+      color: Colors.blue[300]
   ),);
 }
 Widget detailsMovieRating(String name){
   return Text("$name/10", style:
   const TextStyle(
       fontSize: 20.0,
-      color: Colors.white60
+      color: Colors.orange
   ),);
 }
 Widget detailsMovieLength(String name){
   return Text(name, style:
-  const TextStyle(
+  TextStyle(
       fontSize: 20.0,
-      color: Colors.white60
+      color: Colors.green[300]
   ),);
 }
 Widget detailsMovieDetails(String name){
